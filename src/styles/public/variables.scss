@@ -1,0 +1,58 @@
+// font
+$font-family: Avenir, Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif, PingFang SC, Hiragino Sans GB, Microsoft YaHei;
+
+// button
+// $button-min-width: 80px;
+
+// sidebar
+
+// $subMenuBg:#1f2d3d;
+
+// ----------------------------
+
+$color-ca: #3782FF;
+$color-cb: #FF5656;
+$color-cc: #FFA61D;
+$color-cd: #41C143;
+$color-c1: #2C3B5E;
+$color-c2: #445782;
+$color-c3: #93A1C2;
+$color-c4: #D1D7E6;
+$color-c5: #E2E9F3;
+$color-c6: #F7F9FF;
+
+
+// --- primary color
+// 品牌色（按钮、文字链、被激活表单轮廓等）
+$c-primary: $color-ca;
+
+// --- status colors
+$c-error: $color-cb;
+$c-warn: $color-cc;
+$c-success: $color-cd;
+$c-info: $color-c3;
+
+// --- other main colors
+$c-title: $color-c1;
+$c-content: $color-c2;
+$c-comment: $color-c3;
+$c-hint: $color-c4;
+$c-divider: $color-c5;
+$c-background: $color-c6;
+
+// --- navbar
+$s-navbar-height: 65px;
+
+// --- sidebar
+$c-sidebar-bg: $c-background;
+$c-sidebar-menu-group: $c-comment;
+$c-sidebar-menu-item: $c-content;
+$c-sidebar-menu-item-active: $c-primary;
+$c-sidebar-menu-item-bg-active: mix(#FFF, $c-primary, 80%); //https://github.com/ElemeFE/element/issues/12951
+$c-sidebar-menu-item-hover: mix(#FFF, $c-sidebar-menu-item-bg-active, 20%);
+
+$s-sidebar-width: 224px;
+$s-sidebar-collapsed-width: 48px;
+
+// others
+$light-shadow: rgba(0,0,0,.025);

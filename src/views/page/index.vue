@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div class="title">HOME Page</div>
+    <div class="title">Generate Page</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "home",
+  name: "page",
   components: {}
 };
 </script>
