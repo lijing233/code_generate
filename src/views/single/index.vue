@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="title">Generate Single component</div>
+    <!-- 编辑区 -->
     <div class="edit-area">
       <div class="main">
         <div
@@ -13,17 +14,42 @@
         </div>
       </div>
       <div class="add-btn" @click="showDrawer = true">+</div>
+    </div>
+    <!-- 设置弹窗 -->
+    <el-dialog
+      title="Setting"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleDialogClose"
+      :modal="true"
+      :destroy-on-close="true"
+      class="setting-dialog"
+    >
       <div class="edit-box">
-        <div v-for="(val, key) in editItem" :key="key">
-          <span>{{ key }} :</span>
-          <el-input v-model="editItem[key]" placeholder="请输入内容"></el-input>
+        <div v-for="(val, key) in editItem" :key="key" class="edit-col">
+          <div class="edit-title">{{ key }} :</div>
+          <el-input
+            class="edit-inp"
+            v-model="editItem[key]"
+            placeholder="请输入内容"
+          ></el-input>
         </div>
       </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sureChangeConfig">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 转换按钮 -->
+    <div class="operate-area">
+      <el-button type="primary" icon="el-icon-refresh" @click="transform"
+        >transform</el-button
+      >
+      <el-button plain icon="el-icon-delete" @click="textarea1 = ''"
+        >clear</el-button
+      >
     </div>
-    <div>
-      <el-button type="primary" plain @click="transform">transform</el-button>
-      <el-button type="primary" plain @click="textarea1 = ''">clear</el-button>
-    </div>
+    <!-- 输出区域 -->
     <div class="output-area">
       <el-input
         type="textarea"
@@ -46,25 +72,50 @@ export default {
   components: { Drawer },
   data() {
     return {
+      dialogVisible: false,
       textarea1: "",
       showDrawer: false,
       itemContent: [],
+      // 编辑使用
+      actIndex: -1,
       editItem: {}
     };
   },
   methods: {
     transform() {
+      if (this.itemContent.length === 0) {
+        this.$message.warning("请选择需要生成代码的组件！");
+        return;
+      }
       const resCode = this.itemContent.reduce((pre, item) => {
-        return pre + "\n" + item.getCode(item.config);
+        if (item.getCode && typeof item.getCode === "function") {
+          return pre + "\n" + item.getCode(item.config);
+        } else {
+          this.$message.error(`组件 ${item.name} 缺少代码生成配置！`);
+          return pre;
+        }
       }, "");
       this.textarea1 = resCode;
     },
     onChoose(item) {
-      this.itemContent.push(item);
+      this.itemContent.push({ ...item });
       console.log("ssssssssss", item);
     },
     onItemEdit(index) {
-      this.editItem = this.itemContent[index].config;
+      this.actIndex = index;
+      console.log(this.itemContent[index].config);
+      this.editItem = { ...this.itemContent[index].config };
+      this.dialogVisible = true;
+    },
+    // 保存修改配置
+    sureChangeConfig() {
+      this.itemContent[this.actIndex].config = { ...this.editItem };
+      this.dialogVisible = false;
+      this.editItem = {};
+      this.actIndex = -1;
+    },
+    handleDialogClose(done) {
+      done();
     }
   }
 };
@@ -122,14 +173,34 @@ export default {
       background: $color-c6;
     }
   }
+}
+
+// setting-dialog
+.setting-dialog {
+  // background: pink;
   .edit-box {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 200px;
-    min-height: 250px;
-    background: pink;
+    .edit-col {
+      display: flex;
+      margin-bottom: 10px;
+      padding-left: 50px;
+      .edit-title {
+        width: 20%;
+        height: 32px;
+        line-height: 32px;
+        margin-right: 20px;
+        color: $c-content;
+      }
+      .edit-inp {
+        width: 60%;
+      }
+    }
   }
+}
+
+// operate-area
+.operate-area {
+  display: flex;
+  justify-content: flex-end;
 }
 
 // output-area
