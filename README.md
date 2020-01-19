@@ -27,3 +27,18 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+
+
+page:
+
+​	index
+
+​	detail
+
+components:
+
+	 - Base:  input select
+	 - form

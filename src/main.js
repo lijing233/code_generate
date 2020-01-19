@@ -11,6 +11,9 @@ import store from "./store";
 
 import "@/plugins";
 
+const test = require("./template/test.ejs");
+console.log(test);
+
 Vue.config.productionTip = false;
 
 new Vue({

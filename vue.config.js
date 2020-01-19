@@ -13,5 +13,14 @@ module.exports = {
         data: `@import '~@/styles/public.scss';`
       }
     }
+  },
+  chainWebpack: config => {
+    // GraphQL Loader
+    config.module
+      .rule("ejs")
+      .test(/\.ejs$/)
+      .use("ejs-html-loader")
+      .loader("ejs-html-loader")
+      .end();
   }
 };
