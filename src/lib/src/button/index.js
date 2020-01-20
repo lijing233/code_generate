@@ -1,8 +1,13 @@
-import { getCode } from "./code";
+// import { getCode } from "./code";
 export default {
   name: "button",
   config: {
-    type: ""
+    type: "",
+    text: ""
   },
-  getCode
+  getCode: config => {
+    if (!config) return "";
+    const baseCode = `<el-button type="${config.type}" plain>${config.text}</el-button>`;
+    return baseCode;
+  }
 };

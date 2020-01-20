@@ -19,8 +19,8 @@ module.exports = {
     config.module
       .rule("ejs")
       .test(/\.ejs$/)
-      .use("ejs-html-loader")
-      .loader("ejs-html-loader")
+      .use("html-loader")
+      .loader("html-loader")
       .end();
   }
 };

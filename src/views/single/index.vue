@@ -11,6 +11,7 @@
           @click="onItemEdit(index)"
         >
           {{ item.name }}
+          <span class="del" @click.stop="delItem(index)">x</span>
         </div>
       </div>
       <div class="add-btn" @click="showDrawer = true">+</div>
@@ -18,7 +19,7 @@
     <!-- 设置弹窗 -->
     <el-dialog
       title="Setting"
-      :visible.sync="dialogVisible"
+      :visible="dialogVisible"
       width="40%"
       :before-close="handleDialogClose"
       :modal="true"
@@ -66,7 +67,6 @@ export default {
   methods: {
     onChoose(item) {
       this.itemContent.push({ ...item });
-      console.log("ssssssssss", item);
     },
     onItemEdit(index) {
       this.actIndex = index;
@@ -83,6 +83,9 @@ export default {
     },
     handleDialogClose(done) {
       done();
+    },
+    delItem(index) {
+      this.itemContent.splice(index, 1);
     }
   }
 };
@@ -115,9 +118,31 @@ export default {
       height: 50px;
       line-height: 50px;
       text-align: center;
-      background: pink;
+      background: #409eff;
+      color: #fff;
+      font-size: 25px;
       border-radius: 5px;
       margin: 10px 43px;
+      position: relative;
+      .del{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 20px;
+        height: 100%;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        // border-radius: 5px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        background: rgba(255, 254, 254, 0.42);
+        transition: all 0.3s;
+        &:hover{
+          width: 80px;
+        }
+      }
     }
   }
   .add-btn {
